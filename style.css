@@ -1,0 +1,84 @@
+/* Global style */
+
+* {
+  scroll-behavior: smooth;
+  transition: 0.3s;
+  overflow: hidden;
+}
+
+body {
+  background-color: rgb(4 22 91);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  direction: ltr;
+}
+.circulaire {
+
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  position: relative;
+  cursor: pointer;
+}
+
+
+/* End  Global Style  */
+
+.task-table {
+  height: 500px;
+  background-color: rgb(180, 180, 180);
+  width: 60%;
+}
+.task-table .head {
+  background-color: rgb(128, 13, 235);
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+.task-table .head h2 {
+  color: white;
+  flex: 1;
+  text-align: center;
+}
+.task-table .head button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 10px;
+}
+
+.task-table .tasks {
+  padding: 15px;
+  
+
+}
+
+.task-table .tasks .task {
+  display: flex;
+  box-shadow: 0 5px 10px rgb(178, 178, 176);
+  width: 100%;
+  border-bottom: solid 1px black;
+
+  background-color: white;
+  
+
+}
+
+.done{
+  background-color: rgb(167, 217, 169) !important;
+}
+.task-table .tasks .task .info {
+  width: 70%;
+  padding-right: 5px;
+  
+}
+.task-table .tasks .task .action {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 30%;
+  
+}
+

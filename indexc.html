@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .tasks-table {
+      background-color: rgb(241, 232, 215);
+      width: 60%;
+      cursor: pointer;
+
+    }
+
+    button.circular {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+
+    }
+
+    button {
+      border: none;
+      font-size: 20px;
+      box-shadow: 0 3px 5px rgba(168, 168, 168, 0.38);
+      cursor: pointer;
+    }
+
+    .task {
+      display: flex;
+      width: 100%;
+      background-color: white;
+      padding: 6px;
+      border-bottom: solid 1px black;
+    }
+
+    .done {
+      background-color: rgb(131, 204, 141);
+    }
+
+    .task:hover {
+      box-shadow: 0px 3px 15px rgba(97, 97, 97, 0.8);
+    }
+  </style>
+</head>
+
+
+<body>
+
+  <div style="direction: rtl;">
+    <!-- center div -->
+    <div style="display: flex;justify-content: center;align-items: center;">
+      <!-- start tasks table -->
+
+      <div class="tasks-table">
+        <!-- header -->
+        <div style="width: 100%;text-align: center;background-color: rgb(92, 52, 155);color: white;">
+          <h2 style="display: inline;">رئيس النادى </h2>
+          <button id="add" class="circular"
+            style="float: right;background-color: white;margin-right: 10px;">add</button>
+        </div>
+
+        <!-- header  -->
+        <!-- tasks -->
+        <div id="tasks" class="tasks" style="padding: 20px;">
+          <!-- task -->
+
+
+          <!-- task -->
+        </div>
+
+      </div>
+
+      <!-- end task table -->
+    </div>
+
+    <!-- end center div -->
+  </div>
+
+
+
+
+
+</body>
+<script>
+
+  let task =
+  {
+    "title": "  دعوة من رئيس النادى",
+    "date": "12/34/2034",
+    "isDone": false,
+
+  }
+    ;
+
+  let tasks = [
+    {
+      "title": "  دعوة من رئيس النادى",
+      "date": "12/34/2034",
+      "isDone": false,
+
+    },
+    {
+      "title": "  دعو النادى",
+      "date": "10/34/2034",
+      "isDone": true,
+
+    },
+    {
+      "title": "ل قرية واد الخيى",
+      "date": "11/34/2034",
+      "isDone": false,
+
+    },
+  ];
+
+  function getTasksFromStrage(){
+     let retrievedTasks=JSON.parse(localStorage.getItem("tasks"))
+     tasks =retrievedTasks ?? []
+
+  }
+  
+  getTasksFromStrage()
+
+  function getTasks() {
+
+    document.getElementById("tasks").innerHTML = " "
+    index = 0;
+
+
+    for (task of tasks) {
+      let content =
+        `
+      <div class="task ${task.isDone ? 'done' : ''} " >
+
+            <!-- task info -->
+            <div style="width: 70%;">
+              <h2>${task.title}</h2>
+              <div>
+                <span>${task.date}</span>
+              </div>
+            </div>
+
+
+            <!-- task info -->
+
+            <!-- task action -->
+            <div style="display: flex;justify-content: space-between;align-items: center;width: 20%;">
+              <button   onclick="deleteTask(${index})"  class="circular" style="background-color:rgb(167, 7, 7) ; color: white;">D</button>
+              <button onclick="CompleteTask(${index})"  class="circular" style="background-color:rgb(28, 167, 7) ; color: white;">C</button>
+              <button onclick="UpdateTask(${index})" class="circular" style="background-color:rgb(7, 18, 167) ; color: white;">E</button>
+            </div>
+
+            <!-- task action -->
+
+          </div>
+
+    `
+      document.getElementById("tasks").innerHTML += content
+      index++;
+
+    }
+  }
+
+  getTasks()
+  
+  document.getElementById("add").addEventListener("click", function () {
+    let now = new Date()
+    let date = now.getDate() + "/" + now.getMonth() + "/" + now.getFullYear() + " " + now.getHours() + ":" + now.getMinutes()
+    let taskName = prompt("ajouter un task ")
+
+    let taskObj = {
+      "title": taskName,
+      "date": date,
+      "isDone": false,
+    }
+    tasks.push(taskObj)
+    
+    storeTasks() 
+    getTasks()
+  })
+
+  let deleteTask = (index) => {
+    let task = tasks[index]
+    console.log(task)
+    tasks.splice(index, 1)
+    storeTasks()
+    getTasks()
+
+
+  }
+
+
+  function UpdateTask(index) {
+    let task = tasks[index]
+    let taskName = prompt("MODIFE", task.title)
+
+    task.title = taskName
+    storeTasks()
+    getTasks()
+
+  }
+
+  function CompleteTask(index) {
+    let task = tasks[index]
+
+
+    if (task.isDone) {
+      task.isDone = false
+
+    } else {
+      task.isDone = true
+    }
+    storeTasks()
+    getTasks()
+  }
+
+//========Storege Functio===//
+
+function storeTasks(){
+  let tasksString=JSON.stringify(tasks)
+  localStorage.setItem("tasks",tasksString)
+}
+</script>
+
+</html>
